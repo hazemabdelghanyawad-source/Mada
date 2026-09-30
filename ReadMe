@@ -1,0 +1,6 @@
+to use the platform follow this raws
+  1- Install Python
+  2- Write This Commend in Terminal : 
+        pip install pandas uvicorn fastapi python-multipart reportlab arabic-reshaper python-bidi 
+  3- Run The Python File 
+  4- http://127.0.0.1:8000/ Write This Url in Browser 
