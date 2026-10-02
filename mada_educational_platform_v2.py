@@ -135,6 +135,9 @@ font_paths = [
     "/System/Library/Fonts/Supplemental/Arial.ttf",
 ]
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FONT_PATH = os.path.join(BASE_DIR, "fonts", "NotoNaskhArabic-Regular.ttf")
+
 font_loaded = False
 
 for path in font_paths:
