@@ -118,40 +118,39 @@ books_catalog = {
 # Arabic PDF support
 # =========================================================
 
+import os
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
 ARABIC_FONT = "ArabicFont"
 
-font_paths = [
-    # Windows
-    r"C:\Windows\Fonts\arial.ttf",
-    r"C:\Windows\Fonts\tahoma.ttf",
-    r"C:\Windows\Fonts\segoeui.ttf",
-    # Linux (common Arabic-capable fonts)
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-    "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf",
-    "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",
-    "/usr/share/fonts/opentype/noto/NotoNaskhArabic-Regular.ttf",
-    # macOS
-    "/Library/Fonts/Arial Unicode.ttf",
-    "/System/Library/Fonts/Supplemental/Arial.ttf",
-]
+# Get the folder where this Python file is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Arabic font stored inside the project
+font_path = os.path.join(
+    BASE_DIR,
+    "fonts",
+    "NotoNaskhArabic-Regular.ttf"
+)
 
 font_loaded = False
 
-for path in font_paths:
-    try:
-        pdfmetrics.registerFont(TTFont(ARABIC_FONT, path))
-        font_loaded = True
-        break
-    except Exception:
-        pass
+try:
+    pdfmetrics.registerFont(
+        TTFont(ARABIC_FONT, font_path)
+    )
+    font_loaded = True
+except Exception as e:
+    print(f"Arabic font could not be loaded: {e}")
 
+# Fallback only if the Arabic font fails
 if not font_loaded:
     ARABIC_FONT = "Helvetica"
 
 
 def esc(value):
     return html.escape(str(value))
-
 
 # =========================================================
 # Utility functions
